@@ -1,0 +1,24 @@
+#!/usr/bin/env node
+
+var hostname = require("os").hostname();
+var url = process.argv[2].replace('localhost', hostname);
+
+var webdriver = require('selenium-webdriver')
+
+var driver = new webdriver.Builder().
+  withCapabilities({browserName: 'firefox'}).
+  usingServer('http://localhost:4444/wd/hub').
+  build();
+
+driver.get(url).then(function() {
+  console.log('foo');
+});
+
+setInterval(function() {
+  console.log('bar');
+}, 4000);
+
+process.on('exit', function(code) {
+  require('fs').writeFileSync('/tmp/log', 'exiting!!!');
+  driver.quit();
+});

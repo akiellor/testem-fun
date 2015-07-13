@@ -1,0 +1,8 @@
+{
+  "launchers": {
+    "Selenium": {
+      "command": "scripts/selenium <url>",
+      "protocol": "browser"
+    }
+  }
+}
