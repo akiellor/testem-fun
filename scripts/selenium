@@ -7,7 +7,7 @@ var webdriver = require('selenium-webdriver')
 
 var driver = new webdriver.Builder().
   withCapabilities({browserName: 'firefox'}).
-  usingServer('http://localhost:4444/wd/hub').
+  usingServer('http://localhost:2005/wd/hub').
   build();
 
 driver.get(url).then(function() {
@@ -18,7 +18,6 @@ setInterval(function() {
   console.log('bar');
 }, 4000);
 
-process.on('exit', function(code) {
-  require('fs').writeFileSync('/tmp/log', 'exiting!!!');
+process.on('SIGTERM', function() {
   driver.quit();
 });
